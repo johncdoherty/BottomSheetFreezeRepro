@@ -5,7 +5,8 @@
     xmlns:viewmodel="clr-namespace:BottomSheetFreezeRepro.ViewModels"
     x:Class="BottomSheetFreezeRepro.ContentViews.ReproFeatureIdentifyContentView"
     x:Name="featureIdentifyContentView"
-    x:DataType="viewmodel:MainViewModel">
+    x:DataType="viewmodel:MainViewModel"
+    SafeAreaEdges="Container, Container, Container, SoftInput">
     
     <!-- 
     BROKEN SCENARIO: Uncomment this grid to demonstrate the freeze issue.
