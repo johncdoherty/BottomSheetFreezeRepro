@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:viewmodel="clr-namespace:BottomSheetFreezeRepro.ViewModels"
+      x:Class="BottomSheetFreezeRepro.ContentViews.PureMauiBottomSheet"
+      x:Name="bottomSheetRoot"
+      x:DataType="viewmodel:MainViewModel"
+      BackgroundColor="#80000000"
+      IsVisible="False">
+    
+    <!-- Bottom Sheet Container -->
+    <Border
+        x:Name="BottomSheetBorder"
+        VerticalOptions="End"
+        BackgroundColor="White"
+        StrokeThickness="0"
+        Padding="0">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,20,0,0" />
+        </Border.StrokeShape>
+        
+        <Grid RowDefinitions="Auto,*">
+            <!-- Grabber Handle -->
+            <Grid
+                Grid.Row="0"
+                Padding="0,8,0,8"
+                BackgroundColor="White">
+                <Grid.GestureRecognizers>
+                    <PanGestureRecognizer PanUpdated="OnPanUpdated" />
+                </Grid.GestureRecognizers>
+                <BoxView
+                    WidthRequest="40"
+                    HeightRequest="4"
+                    CornerRadius="2"
+                    BackgroundColor="LightGray"
+                    HorizontalOptions="Center" />
+            </Grid>
+            
+            <!-- Content -->
+            <ScrollView
+                Grid.Row="1"
+                x:Name="ContentScrollView">
+                <VerticalStackLayout
+                    Padding="16"
+                    Spacing="12">
+                    <Label
+                        Text="🧪 Pure MAUI Test"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center" />
+                    
+                    <Label
+                        Text="This uses MAUI PanGestureRecognizer (not Syncfusion)"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Margin="0,0,0,10" />
+                    
+                    <Label
+                        Text="TEST: Drag the grabber handle down slowly"
+                        FontAttributes="Bold" />
+                    <Label
+                        Text="Does it freeze when the handle reaches the tab bar?" />
+                    
+                    <Border
+                        Margin="0,20,0,10"
+                        Padding="10"
+                        StrokeThickness="1"
+                        Stroke="LightGray"
+                        BackgroundColor="#F8F9FA">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="12">
+                            <Label
+                                Text="Filter Options"
+                                FontSize="16"
+                                FontAttributes="Bold" />
+                            
+                            <FlexLayout
+                                Wrap="Wrap"
+                                Direction="Row"
+                                JustifyContent="Start"
+                                AlignItems="Start">
+                                <Button Text="Filter 1" Margin="4,2" Padding="12,8" FontSize="14" CornerRadius="20" BackgroundColor="#007ACC" TextColor="White" />
+                                <Button Text="Filter 2" Margin="4,2" Padding="12,8" FontSize="14" CornerRadius="20" BackgroundColor="#007ACC" TextColor="White" />
+                                <Button Text="Filter 3" Margin="4,2" Padding="12,8" FontSize="14" CornerRadius="20" BackgroundColor="#007ACC" TextColor="White" />
+                                <Button Text="Filter 4" Margin="4,2" Padding="12,8" FontSize="14" CornerRadius="20" BackgroundColor="#007ACC" TextColor="White" />
+                                <Button Text="Filter 5" Margin="4,2" Padding="12,8" FontSize="14" CornerRadius="20" BackgroundColor="#007ACC" TextColor="White" />
+                                <Button Text="Filter 6" Margin="4,2" Padding="12,8" FontSize="14" CornerRadius="20" BackgroundColor="#007ACC" TextColor="White" />
+                                <Button Text="Filter 7" Margin="4,2" Padding="12,8" FontSize="14" CornerRadius="20" BackgroundColor="#007ACC" TextColor="White" />
+                                <Button Text="Filter 8" Margin="4,2" Padding="12,8" FontSize="14" CornerRadius="20" BackgroundColor="#007ACC" TextColor="White" />
+                            </FlexLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <CollectionView
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="None"
+                        HeightRequest="400">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <Border
+                                        StrokeThickness="1"
+                                        Stroke="LightGray"
+                                        BackgroundColor="#007ACC"
+                                        HorizontalOptions="Fill">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12" />
+                                        </Border.StrokeShape>
+                                        <Border.Padding>
+                                            <Thickness>16</Thickness>
+                                        </Border.Padding>
+                                        <Label
+                                            Text="{Binding .}"
+                                            TextColor="White"
+                                            FontSize="18"
+                                            HeightRequest="80"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Border>
+</Grid>

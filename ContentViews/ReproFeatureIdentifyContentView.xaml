@@ -37,16 +37,16 @@
                 Text="ISSUE:"
                 FontAttributes="Bold" />
             <Label
-                Text="✗ Filter section has no height constraint" />
+                Text="✗ No height constraint on content" />
             <Label
-                Text="✗ Content extends into tab bar zone" />
+                Text="✗ Bottom sheet extends fully" />
             <Label
-                Text="✗ Bottom sheet FREEZES when dragging" />
+                Text="✗ FREEZES when grabber reaches tab bar" />
             <Label
                 Text=""
                 Margin="0,10,0,0" />
             <Label
-                Text="Drag the sheet down slowly - it will FREEZE when the grabber handle reaches the tab bar zone"
+                Text="Drag down slowly - freezes when grabber handle reaches tab bar zone"
                 FontAttributes="Italic"
                 FontSize="12" />
         </VerticalStackLayout>
@@ -168,35 +168,37 @@
             Margin="10,0,10,10"
             Spacing="5">
             <Label
-                Text="WORKAROUND APPLIED:"
+                Text="WORKAROUND:"
                 FontAttributes="Bold" />
             <Label
-                Text="✓ Filter section wrapped with MaximumHeightRequest" />
+                Text="✓ ScrollView with MaximumHeightRequest=600" />
             <Label
-                Text="✓ ScrollView allows scrolling within constraint" />
+                Text="✓ Constrains expansion, keeps grabber away from tab bar" />
             <Label
-                Text="✓ Bottom sheet drags smoothly without freezing" />
+                Text="✓ Works on iOS 18.x and 18.2.6" />
             <Label
                 Text=""
                 Margin="0,10,0,0" />
             <Label
-                Text="Drag the sheet down - it works perfectly!"
+                Text="Drag down - no freeze! Pattern matches production apps."
                 FontAttributes="Italic"
                 FontSize="12" />
         </VerticalStackLayout>
 
-        <Border
+        <ScrollView
             Grid.Row="2"
-            MaximumHeightRequest="300"
+            MaximumHeightRequest="600"
             Margin="10,5,10,10"
-            Padding="10"
-            StrokeThickness="1"
-            Stroke="LightGray"
-            BackgroundColor="#F8F9FA">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="12" />
-            </Border.StrokeShape>
-            <ScrollView>
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill">
+            <Border
+                Padding="10"
+                StrokeThickness="1"
+                Stroke="LightGray"
+                BackgroundColor="#F8F9FA">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
                 <VerticalStackLayout Spacing="12">
                     <Grid ColumnDefinitions="*,Auto">
                         <Label
@@ -242,8 +244,8 @@
                         CornerRadius="12"
                         HorizontalOptions="Start" />
                 </VerticalStackLayout>
-            </ScrollView>
-        </Border>
+            </Border>
+        </ScrollView>
 
         <RefreshView
             Grid.Row="3"

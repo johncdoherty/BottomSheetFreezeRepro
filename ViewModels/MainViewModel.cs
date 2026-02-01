@@ -64,7 +64,30 @@ public sealed class MainViewModel : INotifyPropertyChanged
 		}
 	}
 
+	private bool _usePureMaui;
+
+	public bool UsePureMaui
+	{
+		get => _usePureMaui;
+		set
+		{
+			if (_usePureMaui == value)
+			{
+				return;
+			}
+
+			_usePureMaui = value;
+			OnPropertyChanged();
+			OnPropertyChanged(nameof(DemoTypeButtonText));
+			OnPropertyChanged(nameof(ShowSyncfusionToggle));
+		}
+	}
+
 	public string ScenarioButtonText => ShowWorkaround ? "🟢 FIXED (tap to see broken)" : "🔴 BROKEN (tap to see fixed)";
+
+	public string DemoTypeButtonText => UsePureMaui ? "📱 Pure MAUI (tap for Syncfusion)" : "🔷 Syncfusion (tap for Pure MAUI)";
+
+	public bool ShowSyncfusionToggle => !UsePureMaui;
 
 	public ICommand NextCommand { get; }
 
@@ -72,11 +95,14 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
 	public ICommand ToggleScenarioCommand { get; }
 
+	public ICommand ToggleDemoTypeCommand { get; }
+
 	public MainViewModel()
 	{
 		NextCommand = new Command(Next);
 		PrevCommand = new Command(Previous);
 		ToggleScenarioCommand = new Command(ToggleScenario);
+		ToggleDemoTypeCommand = new Command(ToggleDemoType);
 	}
 
 	private void Next()
@@ -108,6 +134,11 @@ public sealed class MainViewModel : INotifyPropertyChanged
 	private void ToggleScenario()
 	{
 		ShowWorkaround = !ShowWorkaround;
+	}
+
+	private void ToggleDemoType()
+	{
+		UsePureMaui = !UsePureMaui;
 	}
 
 	public event PropertyChangedEventHandler? PropertyChanged;

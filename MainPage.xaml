@@ -17,33 +17,42 @@
                 FontAttributes="Bold"
                 Text="Bottom Sheet Freeze Repro" />
             <Label
-                Text="iOS 18.2+ with Tab Bar" 
+                Text="iOS + Tab Bar" 
                 FontSize="16"/>
             <Label
-                Text="REPRO STEPS:" 
+                Text="ISSUE:" 
                 FontAttributes="Bold"
                 Margin="0,10,0,0"/>
             <Label
-                Text="1. Open the bottom sheet (tap button below)"/>
+                Text="Syncfusion SfBottomSheet freezes when grabber handle reaches tab bar zone"/>
             <Label
-                Text="2. Slowly drag the sheet downward to close"/>
-            <Label
-                Text="3. Observe: App freezes when the grabber handle reaches the bottom tab bar area"
-                FontAttributes="Bold"/>
-            <Label
-                Text="Note: Freeze occurs at grabber position, not content position"
-                FontSize="12"
+                Text="FINDINGS:" 
+                FontAttributes="Bold"
                 Margin="0,10,0,0"/>
+            <Label
+                Text="✅ Pure MAUI works perfectly"/>
+            <Label
+                Text="❌ Syncfusion freezes on drag"/>
+            <Label
+                Text="✅ Workaround: ScrollView + MaximumHeightRequest"/>
+            <Button
+                Text="{Binding DemoTypeButtonText}"
+                Command="{Binding ToggleDemoTypeCommand}"
+                Margin="0,10,0,0"
+                FontAttributes="Bold"
+                BackgroundColor="#007ACC" />
             <Button
                 Text="{Binding ScenarioButtonText}"
                 Command="{Binding ToggleScenarioCommand}"
-                Margin="0,10,0,0"
-                FontAttributes="Bold" />
+                Margin="0,5,0,0"
+                FontAttributes="Bold"
+                IsVisible="{Binding ShowSyncfusionToggle}" />
             <Button
                 Text="Open bottom sheet"
                 Clicked="OnOpenBottomSheetClicked" />
         </VerticalStackLayout>
 
+        <!-- Syncfusion Bottom Sheet -->
         <bottomSheet:SfBottomSheet
             x:Name="ReproBottomSheet"
             Grid.Row="0"
@@ -61,6 +70,9 @@
                 <local:ReproFeatureIdentifyContentView />
             </bottomSheet:SfBottomSheet.BottomSheetContent>
         </bottomSheet:SfBottomSheet>
+        
+        <!-- Pure MAUI Bottom Sheet -->
+        <local:PureMauiBottomSheet x:Name="MauiBottomSheet" />
     </Grid>
 
 </ContentPage>
