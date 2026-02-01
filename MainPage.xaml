@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:bottomSheet="clr-namespace:Syncfusion.Maui.Toolkit.BottomSheet;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:local="clr-namespace:BottomSheetFreezeRepro.ContentViews"
+	        xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             x:Class="BottomSheetFreezeRepro.MainPage"
+             ios:Page.UseSafeArea="False">
+
+    <Grid IgnoreSafeArea="True">
+        <VerticalStackLayout
+            Padding="16"
+            Spacing="12">
+            <Label
+                FontSize="20"
+                Text="Bottom sheet freeze repro" />
+            <Label
+                Text="Drag the sheet down to close. Swipe left/right inside the sheet to change items." />
+            <Button
+                Text="Open bottom sheet"
+                Clicked="OnOpenBottomSheetClicked" />
+        </VerticalStackLayout>
+
+        <bottomSheet:SfBottomSheet
+            x:Name="ReproBottomSheet"
+            Grid.Row="0"
+            IsOpen="False"
+            IsModal="True"
+            AllowedState="FullExpanded"
+            CollapseOnOverlayTap="True"
+            CornerRadius="20"
+            ContentPadding="16,8,16,16"
+            FullExpandedRatio="0.9"
+            HalfExpandedRatio="0.5"
+            CollapsedHeight="0"
+            State="FullExpanded">
+            <bottomSheet:SfBottomSheet.BottomSheetContent>
+                <local:ReproFeatureIdentifyContentView />
+            </bottomSheet:SfBottomSheet.BottomSheetContent>
+        </bottomSheet:SfBottomSheet>
+    </Grid>
+
+</ContentPage>
