@@ -46,14 +46,37 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
 	public bool CanGoForward => CurrentIndex < Items.Count - 1;
 
+	private bool _showWorkaround;
+
+	public bool ShowWorkaround
+	{
+		get => _showWorkaround;
+		set
+		{
+			if (_showWorkaround == value)
+			{
+				return;
+			}
+
+			_showWorkaround = value;
+			OnPropertyChanged();
+			OnPropertyChanged(nameof(ScenarioButtonText));
+		}
+	}
+
+	public string ScenarioButtonText => ShowWorkaround ? "🟢 FIXED (tap to see broken)" : "🔴 BROKEN (tap to see fixed)";
+
 	public ICommand NextCommand { get; }
 
 	public ICommand PrevCommand { get; }
+
+	public ICommand ToggleScenarioCommand { get; }
 
 	public MainViewModel()
 	{
 		NextCommand = new Command(Next);
 		PrevCommand = new Command(Previous);
+		ToggleScenarioCommand = new Command(ToggleScenario);
 	}
 
 	private void Next()
@@ -80,6 +103,11 @@ public sealed class MainViewModel : INotifyPropertyChanged
 		{
 			CurrentIndex--;
 		}
+	}
+
+	private void ToggleScenario()
+	{
+		ShowWorkaround = !ShowWorkaround;
 	}
 
 	public event PropertyChangedEventHandler? PropertyChanged;

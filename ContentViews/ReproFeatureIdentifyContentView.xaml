@@ -8,27 +8,25 @@
     x:DataType="viewmodel:MainViewModel"
     SafeAreaEdges="Container, Container, Container, SoftInput">
     
-    <!-- 
-    BROKEN SCENARIO: Uncomment this grid to demonstrate the freeze issue.
-    The content has no height restriction and can extend into the iOS tab bar zone.
-    When you drag the bottom sheet slowly downward, it will freeze when the content
-    reaches the transparent tab bar area.
-    -->
-    <Grid
+    <!-- Parent Grid to hold both scenarios -->
+    <Grid>
+        <!-- BROKEN SCENARIO - No height constraint, will freeze when dragged -->
+        <Grid
         Padding="0"
         BackgroundColor="Transparent"
         HorizontalOptions="Fill"
         RowDefinitions="Auto,Auto,Auto,*"
-        VerticalOptions="Fill">
+        VerticalOptions="Fill"
+        IsVisible="{Binding ShowWorkaround, Converter={StaticResource InvertedBoolConverter}}">
         <HorizontalStackLayout
             Grid.Row="0"
             HorizontalOptions="Center"
             Margin="0,10,0,10">
             <Label
-                Text="⚠️ BROKEN: Will Freeze on iOS"
+                Text="🔴 BROKEN: Will Freeze on iOS"
                 FontSize="20"
                 FontAttributes="Bold"
-                TextColor="Red" />
+                TextColor="#DC3545" />
         </HorizontalStackLayout>
 
         <VerticalStackLayout
@@ -36,19 +34,23 @@
             Margin="10,0,10,10"
             Spacing="5">
             <Label
-                Text="REPRO STEPS:"
+                Text="ISSUE:"
                 FontAttributes="Bold" />
             <Label
-                Text="1. Expand filters below" />
+                Text="✗ Filter section has no height constraint" />
             <Label
-                Text="2. Drag sheet SLOWLY downward" />
+                Text="✗ Content extends into tab bar zone" />
             <Label
-                Text="3. When filter section reaches tab bar → FREEZE" />
+                Text="✗ Bottom sheet FREEZES when dragging" />
             <Label
-                Text="4. App becomes unresponsive (no logs/errors)" />
+                Text=""
+                Margin="0,10,0,0" />
+            <Label
+                Text="Drag the sheet down slowly - it will FREEZE when the grabber handle reaches the tab bar zone"
+                FontAttributes="Italic"
+                FontSize="12" />
         </VerticalStackLayout>
 
-        <!-- Expandable Filter Section - This triggers the freeze -->
         <Border
             Grid.Row="2"
             Margin="10,5,10,10"
@@ -77,7 +79,6 @@
                         WidthRequest="40" />
                 </Grid>
 
-                <!-- Multiple filter buttons to make content tall -->
                 <FlexLayout
                     Wrap="Wrap"
                     Direction="Row"
@@ -142,18 +143,15 @@
             </CollectionView>
         </RefreshView>
     </Grid>
-    
-    <!-- 
-    WORKAROUND (FIXED): Uncomment this section and comment out the grid above to see the fix.
-    Wrapping the filter section in a Border with MaximumHeightRequest prevents content
-    from extending unbounded into the tab bar zone, preventing the freeze.
-    -->
-    <!-- <Grid
+
+    <!-- FIXED SCENARIO - With MaximumHeightRequest workaround -->
+    <Grid
         Padding="0"
         BackgroundColor="Transparent"
         HorizontalOptions="Fill"
         RowDefinitions="Auto,Auto,Auto,*"
-        VerticalOptions="Fill">
+        VerticalOptions="Fill"
+        IsVisible="{Binding ShowWorkaround}">
         <HorizontalStackLayout
             Grid.Row="0"
             HorizontalOptions="Center"
@@ -162,7 +160,7 @@
                 Text="✅ FIXED: Works Smoothly"
                 FontSize="20"
                 FontAttributes="Bold"
-                TextColor="Green" />
+                TextColor="#28A745" />
         </HorizontalStackLayout>
 
         <VerticalStackLayout
@@ -175,14 +173,14 @@
             <Label
                 Text="✓ Filter section wrapped with MaximumHeightRequest" />
             <Label
-                Text="✓ Prevents unbounded height into tab bar zone" />
+                Text="✓ ScrollView allows scrolling within constraint" />
             <Label
                 Text="✓ Bottom sheet drags smoothly without freezing" />
             <Label
                 Text=""
                 Margin="0,10,0,0" />
             <Label
-                Text="Drag the sheet down - it works!"
+                Text="Drag the sheet down - it works perfectly!"
                 FontAttributes="Italic"
                 FontSize="12" />
         </VerticalStackLayout>
@@ -281,5 +279,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-    </Grid> -->
+    </Grid>
+    </Grid>
 </ContentView>

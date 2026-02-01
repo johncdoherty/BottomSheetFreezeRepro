@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:bottomSheet="clr-namespace:Syncfusion.Maui.Toolkit.BottomSheet;assembly=Syncfusion.Maui.Toolkit"
              xmlns:local="clr-namespace:BottomSheetFreezeRepro.ContentViews"
+             xmlns:viewmodel="clr-namespace:BottomSheetFreezeRepro.ViewModels"
              x:Class="BottomSheetFreezeRepro.MainPage"
+             x:DataType="viewmodel:MainViewModel"
              SafeAreaEdges="None">
 
     <Grid SafeAreaEdges="None">
@@ -32,6 +34,11 @@
                 Text="Note: Freeze occurs at grabber position, not content position"
                 FontSize="12"
                 Margin="0,10,0,0"/>
+            <Button
+                Text="{Binding ScenarioButtonText}"
+                Command="{Binding ToggleScenarioCommand}"
+                Margin="0,10,0,0"
+                FontAttributes="Bold" />
             <Button
                 Text="Open bottom sheet"
                 Clicked="OnOpenBottomSheetClicked" />
