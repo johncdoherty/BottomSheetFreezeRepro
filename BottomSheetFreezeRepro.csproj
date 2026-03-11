@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<MauiVersion>10.0.30</MauiVersion>
+		<MauiVersion>10.0.50</MauiVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
